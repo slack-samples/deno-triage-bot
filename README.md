@@ -24,7 +24,7 @@ for x in triggers/*.ts ; do slack triggers create -w $WORKSPACE --trigger-def $x
 * `public_report_shortcut_trigger.ts` - Shortcut trigger enabling users to generate a public triage report for the current channel.
 * `triage_by_days_shortcut_trigger.ts` - Shortcut trigger enabling users to to generate a private triage report for the current channel with a specific lookback day.
 * `private_report_webhook_trigger.ts` - Used internally by triage_by_days_shortcut_trigger to programmatically send private posts.
-* `Post_messages_scheduled_trigger.ts` - Scheduled trigger with hourly frequency. This trigger trips `post_scheduled_messages_workflow` which queries the datastore for per-channel cron schedules, and sends posts scheduled for the current hour.
+* `private_report_scheduled_trigger.ts` - Scheduled trigger for posting private reports with hourly frequency. This trigger trips the `post_scheduled_messages_workflow` which queries the datastore for per-channel cron schedules, and sends posts scheduled for the current hour.
 * `public_report_webhook_trigger.ts` - Used internally by scheduled triggers to programmatically send scheduled posts.
 
 
