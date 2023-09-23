@@ -3,7 +3,7 @@ import PrivateReportWorkflow from "../workflows/private_report_workflow.ts";
 
 const trigger: Trigger<typeof PrivateReportWorkflow.definition> = {
   type: "shortcut",
-  name: "triage",
+  name: "Triage",
   workflow: "#/workflows/private_report_workflow",
   inputs: {
     "user_id": {

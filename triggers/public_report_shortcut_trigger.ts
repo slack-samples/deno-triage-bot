@@ -3,7 +3,7 @@ import PublicReportWorkflow from "../workflows/public_report_workflow.ts";
 
 const trigger: Trigger<typeof PublicReportWorkflow.definition> = {
   type: "shortcut",
-  name: "triage publish",
+  name: "Triage Publish",
   workflow: "#/workflows/public_report_workflow",
   inputs: {
     "channel_id": {
