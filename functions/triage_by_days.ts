@@ -61,7 +61,7 @@ export default SlackFunction(
       const channelId = privateMetadata["channel_id"];
       const userId = privateMetadata["user_id"];
 
-      await tripWebhookTrigger(
+      await tripPrivateReportWebhookTrigger(
         token,
         webhookUrl,
         channelId,
@@ -77,7 +77,7 @@ export default SlackFunction(
     },
   );
 
-async function tripWebhookTrigger(
+async function tripPrivateReportWebhookTrigger(
   token: string,
   url: string,
   channel_id: string,

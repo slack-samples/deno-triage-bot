@@ -41,7 +41,7 @@ export default SlackFunction(
       const channelIds = await getChannelIds(client);
 
       for (const channelId of channelIds) {
-        await tripWebhookTrigger(token, webhookUrl, channelId);
+        await tripPublicReportWebhookTrigger(token, webhookUrl, channelId);
       }
       return { outputs: {} };
     } catch (error) {
@@ -78,7 +78,7 @@ async function getChannelIds(client: SlackAPIClient): Promise<string[]> {
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function tripWebhookTrigger(
+async function tripPublicReportWebhookTrigger(
   token: string,
   url: string,
   channel_id: string,
@@ -88,14 +88,12 @@ async function tripWebhookTrigger(
   );
 
   /**
-   * Sleep for one second before making the webhook API call because the Slack API has a 1 per
-   * second rate limit for this request type. In production, we observed "Too Many Requests"
+   * Sleep for six second before making the webhook API call because the Slack API has a 10 per
+   * minute rate limit for this request type. In production, we observed "Too Many Requests"
    * errors when attempting to rapidly trip all the per-channel webhook triggers.
    *
    * @see https://api.slack.com/docs/rate-limits
    */
-  // Yingying: after asking, we found that hermes_webhook is using the rate limit 10/minute instead of 1/second
-  // https://slack-pde.slack.com/archives/C04NX6QM6TX/p1691183996874449?thread_ts=1690931613.472649&cid=C04NX6QM6TX
   await sleep(6000);
 
   const resp = await fetch(url, {
