@@ -65,19 +65,14 @@ What do those emoji mean?
 > :blue_circle: *Not as urgent*, needs a response within the day or needs clarity or direction from the triage hosts
 > :white_circle: *Question or clarification*, needs guidance as to next steps
 
-Below are the workflows for Triagebot, you can either click on the workflow link below, or search them using the \`More > Automations > Workflows\` page
+Below are the workflows for Triagebot, you can search them using the \`More > Automations > Workflows\` page
 
 - \`triage\` to get a report of triage requests in <#${channel_id}>
-Workflow link: https://slack.com/shortcuts/Ft05KUM0GR0B/3ee8f40768cba8a9cea718f9892ce94a
 
 - \`triage publish\` to publish the triage info in <#${channel_id}>
-Workflow link: https://slack.com/shortcuts/Ft05KE88MEBH/699ddd94a0d7d0a729338068b1d31f4a
 
 - \`Triage by lookback days\` to get a report of triage requests in <#${channel_id}> with your specified lookback days
-Workflow link: https://slack.com/shortcuts/Ft05L78FGK2M/57c0b29b43a6635f3f5f947f9620d17f
 
 - \`Manage Triagebot Configuration\` to configure settings for sending scheduled posts to a channel
-Workflow link: https://slack.com/shortcuts/Ft041W2HCLTE/72f5172e5a9e1252ae698b6a8d1b8dc2
-
 `;
 }
