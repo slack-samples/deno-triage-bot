@@ -1,6 +1,8 @@
 {
   "imports": {
-    "deno-slack-sdk/": "https://deno.land/x/deno_slack_sdk@2.2.0/",
-    "deno-slack-api/": "https://deno.land/x/deno_slack_api@2.1.1/"
+    "deno-slack-api/": "https://deno.land/x/deno_slack_api@2.1.2/",
+    "deno-slack-sdk/": "https://deno.land/x/deno_slack_sdk@2.3.0/",
+    "testing/": "https://deno.land/std@0.145.0/testing/",
+    "cron-parser/": "https://deno.land/x/simple_cron@v0.1.0/"
   }
 }
