@@ -1,6 +1,6 @@
 # Triage Bot
 
-This automation features workflows where users can generate reports for support requests in Slack public channels. In addition, users can configure channels to receive reports on a scheduled basis. A request is any message that begins with a :white_circle:, :blue_circle:, or :red_circle: emoji. A message with :eyes: reaction is in progress. A message with :done: reaction is done.
+This automation features workflows where users can generate reports for support requests in Slack public channels. In addition, users can configure channels to receive reports on a scheduled basis. A request is any message that begins with a :white_circle:, :large_blue_circle:, or :red_circle: emoji. A message with :eyes: reaction is in progress. A message with :white_check_mark: reaction is done.
 
 
 **Guide Outline**:
@@ -132,7 +132,7 @@ For storing data related to your app, datastores offer secure storage on Slack
 infrastructure. The use of a datastore requires the
 `datastore:write`/`datastore:read` scopes to be present in your manifest.
 
-You may also intereact with datastores using [Slack command line interface](https://api.slack.com/automation/cli/commands#datastore).
+You may also intereact with datastores using the [Slack command line interface](https://api.slack.com/automation/cli/commands#datastore).
 
 To get scheduled posts working, you need to add the following data to your app's datastores.
 1. Find the webhook URL for the `triagebot private report` and `triagebot public report` by listing all triggers in your current workspace and environment.
