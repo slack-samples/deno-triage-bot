@@ -394,7 +394,7 @@ async function buildSummary(
     }
   }
   if (scheduled) {
-    summary += `Trigger the triage workflow to see more information.`;
+    summary += "Trigger the `triage` workflow to see more information.";
   }
   return summary;
 }

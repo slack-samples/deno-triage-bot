@@ -58,7 +58,7 @@ export function help_text_generator(
 Here’s how :hospital: *Triage Bot* works:
 > I look at messages posted in this channel during the last week.
 > I only care about messages that have :red_circle:, :blue_circle:, or :white_circle:.
-> A message with :eyes: reaction is in progress. A message with :done: reaction is done. Otherwise, it’s still pending.
+> A message with :eyes: reaction is in progress. A message with :white_check_mark: reaction is done. Otherwise, it’s still pending.
 
 What do those emoji mean?
 > :red_circle: *Urgent*, needs a response from engineering triage hosts now
