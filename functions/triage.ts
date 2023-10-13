@@ -394,8 +394,7 @@ async function buildSummary(
     }
   }
   if (scheduled) {
-    summary +=
-      `Trigger the triage workflow https://slack.com/shortcuts/Ft05KUM0GR0B/3ee8f40768cba8a9cea718f9892ce94a to see more information.`;
+    summary += `Trigger the triage workflow to see more information.`;
   }
   return summary;
 }
