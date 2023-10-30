@@ -95,30 +95,15 @@ type channelType = {
 
 const URGENCY_EMOJIS: { [emoji: string]: number } = {
   ":red_circle:": 0,
-  ":red-c:": 0,
-  ":urgent:": 0,
-
-  ":blue_circle:": 1,
   ":large_blue_circle:": 1,
-  ":not_urgent:": 1,
-  ":bluecir:": 1,
-  ":blue-c:": 1,
-
   ":white_circle:": 2,
-  ":white-c:": 2,
-  ":feedback:": 2,
 };
 
 const REACJI_DONE = [
   "white_check_mark",
-  "check_green",
-  "done",
-  "heavy_check_mark",
-  "red-x",
-  "x",
 ];
 
-const REACJI_IN_PROGRESS = ["eyes", "eyes_right"];
+const REACJI_IN_PROGRESS = ["eyes"];
 
 const NO_PENDING_REQUESTS_MSG = "Nothing is outstanding. :tada:";
 

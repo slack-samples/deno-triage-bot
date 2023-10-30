@@ -57,12 +57,12 @@ export function help_text_generator(
   return `
 Here’s how :hospital: *Triage Bot* works:
 > I look at messages posted in this channel during the last week.
-> I only care about messages that have :red_circle:, :blue_circle:, or :white_circle:.
+> I only care about messages that have :red_circle:, :large_blue_circle:, or :white_circle:.
 > A message with :eyes: reaction is in progress. A message with :white_check_mark: reaction is done. Otherwise, it’s still pending.
 
 What do those emoji mean?
 > :red_circle: *Urgent*, needs a response from engineering triage hosts now
-> :blue_circle: *Not as urgent*, needs a response within the day or needs clarity or direction from the triage hosts
+> :large_blue_circle: *Not as urgent*, needs a response within the day or needs clarity or direction from the triage hosts
 > :white_circle: *Question or clarification*, needs guidance as to next steps
 
 Below are the workflows for Triagebot, you can search them using the \`More > Automations > Workflows\` page
