@@ -35,7 +35,8 @@ export const renderCollectNewConfigView = (
         "block_id": "lookback_days_block",
         "label": {
           "type": "plain_text",
-          "text": ":rewind: How many days should we look back for requests?",
+          "text":
+            ":rewind: How many days should we look back for triage requests for private/public/scheduled reports?",
         },
         "element": {
           "type": "plain_text_input",
@@ -51,7 +52,7 @@ export const renderCollectNewConfigView = (
         "text": {
           "type": "mrkdwn",
           "text":
-            ":calendar: What <https://crontab.guru|cron> schedule should messages be posted to the channel?",
+            ":calendar: What <https://crontab.guru|cron> schedule should messages be posted to the channel? Once the configuration is submitted, Triagebot will start posting messages to the channel based on this schedule",
         },
       },
       {

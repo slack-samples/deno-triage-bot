@@ -1,6 +1,6 @@
 # Triage Bot
 
-This automation features workflows where users can generate reports for support
+Triage Bot features workflows where users can generate reports for support
 requests in Slack public channels. In addition, users can configure channels to
 receive reports on a scheduled basis. A request is any message that begins with
 a :white_circle:, :large_blue_circle:, or :red_circle: emoji. A message with
@@ -9,11 +9,11 @@ done.
 
 **Guide Outline**:
 
-- [Included Workflows](#included-workflows)
 - [Setup](#setup)
   - [Install the Slack CLI](#install-the-slack-cli)
   - [Clone the Sample App](#clone-the-sample-app)
 - [Running Your Project Locally](#running-your-project-locally)
+- [Included Workflows](#included-workflows)
 - [Creating Triggers](#creating-triggers)
 - [Datastores](#datastores)
 - [Testing](#testing)
@@ -23,16 +23,6 @@ done.
 - [Resources](#resources)
 
 ---
-
-## Included Workflows
-
-- **Triagebot Help**: Post a private help message in the current channel
-- **Manage Triagebot Configuration**: Enter details to manage channel
-  configuration for scheduled posts and default lookback day
-- **Triage**: Post a private triage report for the current channel
-- **Triage Publish**: Post a public triage report for the current channel
-- **Triage by lookback days**: Enter lookback days to post a private triage
-  report for the current channel with the input lookback day
 
 ## Setup
 
@@ -74,8 +64,69 @@ Connected, awaiting events
 
 To stop running locally, press `<CTRL> + C` to end the process.
 
-## Creating Triggers
 
+## Included Workflows
+Here is the list of workflows for Triage Bot and steps to create them:
+
+- **Triagebot Help**: Post a private help message in the current channel
+Run the following command to enable this workflow:
+```zsh
+$ slack trigger create --trigger-def triggers/help_shortcut_trigger.ts
+```
+
+- **Triage**: Post a private triage report for the current channel
+Run the following command to enable this workflow
+```zsh
+$ slack trigger create --trigger-def triggers/private_report_shortcut_trigger.ts
+```
+
+- **Triage Publish**: Post a public triage report for the current channel
+Run the following command to enable this workflow
+```zsh
+$ slack trigger create --trigger-def triggers/public_report_shortcut_trigger.ts
+```
+
+- **Manage Triagebot Configuration**: Enter details to manage channel
+  configuration for scheduled posts and lookback days for triage requests
+
+To get scheduled posts working, you need to first create  `private_report_webhook_trigger` and add the webhook url to your app's datastores.
+1. create the `private_report_webhook_trigger` trigger
+```zsh
+$ slack trigger create --trigger-def triggers/private_report_webhook_trigger.ts
+```
+
+2. Save the webhook URLs in the `webhook` datastore
+
+```zsh
+$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "private", "url": "webhook url from step 1"}}'
+
+```
+3. Run the following command to enable this workflow
+```zsh
+$ slack trigger create --trigger-def triggers/manage_configuration_trigger.ts
+```
+
+- **Triage by lookback days**: Post a private triage report in the current channel 
+  with the specified lookback days for triage requests
+
+First, you need to create  `public_report_webhook_trigger` and add the webhook url to your app's datastores.
+1. create the `public_report_webhook_trigger` trigger
+```zsh
+$ slack trigger create --trigger-def triggers/public_report_webhook_trigger.ts
+```
+
+2. Save the webhook URLs in the `webhook` datastore
+```zsh
+$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "public", "url": "webhook url from step 1"}}'
+
+```
+3. Run the following command to enable this workflow
+```zsh
+$ slack trigger create --trigger-def triggers/triage_by_days_shortcut_trigger.ts
+```
+
+## Creating Triggers
+We've created different triggers in [the Included Workflows section](#included-workflows).
 [Triggers](https://api.slack.com/automation/triggers) are what cause workflows
 to run. These triggers can be invoked by a user, or automatically as a response
 to an event within Slack.
@@ -84,17 +135,7 @@ When you `run` or `deploy` your project for the first time, the CLI will prompt
 you to create a trigger if one is found in the `triggers/` directory. For any
 subsequent triggers added to the application, each must be
 [manually added using the `trigger create` command](#manual-trigger-creation).
-
-Please create the following triggers when prompted:
-
-- triggers/help_shortcut_trigger.ts
-- triggers/private_report_shortcut_trigger.ts
-- triggers/public_report_shortcut_trigger.ts
-- triggers/triage_by_days_shortcut_trigger.ts
-- triggers/manage_configuration_trigger.ts
-- triggers/post_messages_scheduled_trigger.ts
-- triggers/private_report_webhook_trigger.ts
-- triggers/public_report_webhook_trigger.ts
+We were creating triggers manually in [the Included Workflows section](#included-workflows).
 
 When creating triggers, you must select the workspace and environment that you'd
 like to create the trigger in. Each workspace can have a local development
@@ -130,9 +171,6 @@ To manually create a trigger, use the following command:
 $ slack trigger create --trigger-def triggers/trigger.ts
 ```
 
-If you haven't created all triggers required in the
-[creating triggers section](#creating-triggers), please manually create them by
-using the command above.
 
 ## Datastores
 
@@ -142,25 +180,7 @@ infrastructure. The use of a datastore requires the
 
 You may also intereact with datastores using the
 [Slack command line interface](https://api.slack.com/automation/cli/commands#datastore).
-
-To get scheduled posts working, you need to add the following data to your app's
-datastores.
-
-1. Find the webhook URL for the `triagebot private report` and
-   `triagebot public report` by listing all triggers in your current workspace
-   and environment.
-
-```zsh
-$ slack triggers list
-```
-
-2. Save the webhook URLs in the `webhook` datastore.
-
-```zsh
-$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "private", "url": "triagebot private report webhook url"}}'
-
-$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "public", "url": "triagebot public report webhook url"}}'
-```
+Interacting datastores using the slack cli is examplified in `Triage by lookback days` and `Manage Triagebot Configuration` workflow creations in [the Included Workflows section](#included-workflows).
 
 ## Testing
 
