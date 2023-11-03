@@ -1,14 +1,19 @@
-# Deno Starter Template
+# Triage Bot
 
-This is a scaffolded Deno template used to build out Slack apps using the Slack
-CLI.
+Triage Bot features workflows where users can generate reports for support
+requests in Slack public channels. In addition, users can configure channels to
+receive reports on a scheduled basis. A request is any message that begins with
+a :white_circle:, :large_blue_circle:, or :red_circle: emoji. A message with
+:eyes: reaction is in progress. A message with :white_check_mark: reaction is
+done.
 
 **Guide Outline**:
 
 - [Setup](#setup)
   - [Install the Slack CLI](#install-the-slack-cli)
-  - [Clone the Template](#clone-the-template)
+  - [Clone the Sample App](#clone-the-sample-app)
 - [Running Your Project Locally](#running-your-project-locally)
+- [Included Workflows](#included-workflows)
 - [Creating Triggers](#creating-triggers)
 - [Datastores](#datastores)
 - [Testing](#testing)
@@ -28,17 +33,17 @@ project require that the workspace be part of
 
 ### Install the Slack CLI
 
-To use this template, you need to install and configure the Slack CLI.
+To use this sample, you need to install and configure the Slack CLI.
 Step-by-step instructions can be found in our
 [Quickstart Guide](https://api.slack.com/automation/quickstart).
 
-### Clone the Template
+### Clone the Sample App
 
 Start by cloning this repository:
 
 ```zsh
 # Clone this project onto your machine
-$ slack create my-app -t slack-samples/deno-starter-template
+$ slack create my-app -t slack-samples/deno-triage-bot
 
 # Change into the project directory
 $ cd my-app
@@ -59,8 +64,77 @@ Connected, awaiting events
 
 To stop running locally, press `<CTRL> + C` to end the process.
 
+## Included Workflows
+
+Here is the list of workflows for Triage Bot and steps to create them:
+
+- **Triagebot Help**: Post a private help message in the current channel.
+
+```zsh
+$ slack trigger create --trigger-def triggers/help_shortcut_trigger.ts
+```
+
+- **Triage**: Post a private triage report for the current channel.
+
+```zsh
+$ slack trigger create --trigger-def triggers/private_report_shortcut_trigger.ts
+```
+
+- **Triage Publish**: Post a public triage report for the current channel.
+
+```zsh
+$ slack trigger create --trigger-def triggers/public_report_shortcut_trigger.ts
+```
+
+- **Manage Triagebot Configuration**: Manage channel configuration for scheduled
+  posts and lookback days for triage requests. To get scheduled posts working,
+  you need to first create `private_report_webhook_trigger` and add the webhook
+  url to the `webhook` datastore.
+
+1. create the `private_report_webhook_trigger` trigger
+
+```zsh
+$ slack trigger create --trigger-def triggers/private_report_webhook_trigger.ts
+```
+
+2. Save the webhook URLs in the `webhook` datastore
+
+```zsh
+$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "private", "url": "webhook url from step 1"}}'
+```
+
+3. Run the following command to create the `manage configuration` workflow
+
+```zsh
+$ slack trigger create --trigger-def triggers/manage_configuration_trigger.ts
+```
+
+- **Triage by lookback days**: Post a private triage report in the current
+  channel with the specified lookback days for triage requests. To get this
+  workflow to work, you need to create `public_report_webhook_trigger` and add
+  the webhook url to the `webhook` datastore.
+
+1. create the `public_report_webhook_trigger` trigger
+
+```zsh
+$ slack trigger create --trigger-def triggers/public_report_webhook_trigger.ts
+```
+
+2. Save the webhook URLs in the `webhook` datastore
+
+```zsh
+$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "public", "url": "webhook url from step 1"}}'
+```
+
+3. Run the following command to enable the `triage by days` workflow
+
+```zsh
+$ slack trigger create --trigger-def triggers/triage_by_days_shortcut_trigger.ts
+```
+
 ## Creating Triggers
 
+In the [previous section](#included-workflows) we've created different triggers.
 [Triggers](https://api.slack.com/automation/triggers) are what cause workflows
 to run. These triggers can be invoked by a user, or automatically as a response
 to an event within Slack.
@@ -69,6 +143,8 @@ When you `run` or `deploy` your project for the first time, the CLI will prompt
 you to create a trigger if one is found in the `triggers/` directory. For any
 subsequent triggers added to the application, each must be
 [manually added using the `trigger create` command](#manual-trigger-creation).
+We were creating triggers manually in
+[the Included Workflows section](#included-workflows).
 
 When creating triggers, you must select the workspace and environment that you'd
 like to create the trigger in. Each workspace can have a local development
@@ -101,21 +177,25 @@ or deployed!**
 To manually create a trigger, use the following command:
 
 ```zsh
-$ slack trigger create --trigger-def triggers/sample_trigger.ts
+$ slack trigger create --trigger-def triggers/trigger.ts
 ```
 
 ## Datastores
 
 For storing data related to your app, datastores offer secure storage on Slack
-infrastructure. For an example of a datastore, see
-`datastores/sample_datastore.ts`. The use of a datastore requires the
+infrastructure. The use of a datastore requires the
 `datastore:write`/`datastore:read` scopes to be present in your manifest.
+
+You may also intereact with datastores using the
+[Slack command line interface](https://api.slack.com/automation/cli/commands#datastore).
+Interacting datastores using the slack cli is examplified in
+`Triage by lookback days` and `Manage Triagebot Configuration` workflow
+creations in [the Included Workflows section](#included-workflows).
 
 ## Testing
 
-For an example of how to test a function, see
-`functions/sample_function_test.ts`. Test filenames should be suffixed with
-`_test`.
+For an example of how to test a function, see `functions/triage_test.ts`. Test
+filenames should be suffixed with `_test`.
 
 Run all tests with `deno test`:
 

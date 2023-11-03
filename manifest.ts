@@ -1,24 +1,63 @@
-import { Manifest } from "deno-slack-sdk/mod.ts";
-import SampleWorkflow from "./workflows/sample_workflow.ts";
-import SampleObjectDatastore from "./datastores/sample_datastore.ts";
+import { DefineDatastore, Manifest, Schema } from "deno-slack-sdk/mod.ts";
+import HelpWorkflow from "./workflows/help_workflow.ts";
+import ManageConfigurationWorkflow from "./workflows/manage_configuration_workflow.ts";
+import PostScheduledMessagesWorkflow from "./workflows/post_scheduled_messages_workflow.ts";
+import PrivateReportWorkflow from "./workflows/private_report_workflow.ts";
+import PublicReportWorkflow from "./workflows/public_report_workflow.ts";
+import TriageByDaysWorkflow from "./workflows/triage_by_days_workflow.ts";
 
-/**
- * The app manifest contains the app's configuration. This
- * file defines attributes like app name and description.
- * https://api.slack.com/automation/manifest
- */
+export const ConfDatastore = DefineDatastore({
+  name: "conf",
+  primary_key: "channel_id",
+  attributes: {
+    channel_id: {
+      type: Schema.types.string,
+    },
+    lookback_days: {
+      type: Schema.types.string,
+    },
+    schedule: {
+      type: Schema.types.string,
+    },
+  },
+});
+
+export const WebhookDatastore = DefineDatastore({
+  name: "webhook",
+  primary_key: "name",
+  attributes: {
+    name: {
+      type: Schema.types.string,
+    },
+    url: {
+      type: Schema.types.string,
+    },
+  },
+});
+
 export default Manifest({
-  name: "deno-starter-template",
-  description: "A template for building Slack apps with Deno",
-  icon: "assets/default_new_app_icon.png",
-  workflows: [SampleWorkflow],
-  outgoingDomains: [],
-  datastores: [SampleObjectDatastore],
+  name: "triagebot-on-platform",
+  description: "Triagebot on Platform 2.0",
+  icon: "assets/icon.png",
+  workflows: [
+    HelpWorkflow,
+    ManageConfigurationWorkflow,
+    PostScheduledMessagesWorkflow,
+    PrivateReportWorkflow,
+    PublicReportWorkflow,
+    TriageByDaysWorkflow,
+  ],
+  datastores: [ConfDatastore, WebhookDatastore],
+  outgoingDomains: ["hooks.slack.com", "hooks.dev.slack.com"],
   botScopes: [
-    "commands",
-    "chat:write",
+    "channels:history",
+    "channels:join",
+    "channels:read",
     "chat:write.public",
+    "chat:write",
+    "commands",
     "datastore:read",
     "datastore:write",
+    "team:read",
   ],
 });
