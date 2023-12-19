@@ -1,7 +1,7 @@
 import { SlackAPIClient } from "deno-slack-api/types.ts";
 
 type UrgencyEmojiItem = {
-  emoji: string;
+  name: string;
   urgency: number;
 };
 
@@ -11,7 +11,7 @@ A value of 0 signifies the highest urgency, while a value of 2 indicates the low
 
 example data:
 {
-  "emoji": "red_circle",
+  "name": "red_circle",
   "urgency": "0",
 }
 
@@ -41,7 +41,7 @@ export default class UrgencyEmojisDatastore {
     // Convert to a dictionary
     const urgencyEmojiDictionary: { [emoji: string]: number } = Object
       .fromEntries(
-        urgencyEmojis.map((item) => [item.emoji, item.urgency]),
+        urgencyEmojis.map((item) => [item.name, item.urgency]),
       );
     return urgencyEmojiDictionary;
   };

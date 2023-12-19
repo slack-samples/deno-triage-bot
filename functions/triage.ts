@@ -91,7 +91,7 @@ type channelType = {
   };
 };
 
-const URGENCY_EMOJIS: { [emoji: string]: number } = {
+const URGENCY_EMOJIS: { [name: string]: number } = {
   ":red_circle:": 0,
   ":large_blue_circle:": 1,
   ":white_circle:": 2,
@@ -266,7 +266,7 @@ function isFromTriagebot(message: MessageType): boolean {
 
 function isRequest(
   message: MessageType,
-  urgencyEmojis: { [emoji: string]: number },
+  urgencyEmojis: { [name: string]: number },
 ): boolean {
   // ignore messages sent by triagebot
   if (isFromTriagebot(message)) {
@@ -291,7 +291,7 @@ function isRequest(
 
 function getOpenRequests(
   messages: MessageType[],
-  urgencyEmojis: { [emoji: string]: number },
+  urgencyEmojis: { [name: string]: number },
   inProgressEmojis: string[],
   doneEmojis: string[],
 ) {
@@ -356,7 +356,7 @@ async function buildSummary(
   inProgress: MessageType[],
   responders: string[],
   channel_id: string,
-  urgency_emojis: { [emoji: string]: number },
+  urgency_emojis: { [name: string]: number },
 ): Promise<string> {
   let summary = "";
   const outstandingCount = outstanding.length;
@@ -423,7 +423,7 @@ async function buildRequestSummary(
   requests: MessageType[],
   channel_id: string,
   publicMessage: boolean,
-  urgencyEmojis: { [emoji: string]: number },
+  urgencyEmojis: { [name: string]: number },
 ): Promise<string> {
   let summary = "";
   if (requests.length === 0) return summary;
