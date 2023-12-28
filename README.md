@@ -106,7 +106,7 @@ $ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name"
 3. Run the following command to create the `manage configuration` workflow
 
 ```zsh
-$ slack trigger create --trigger-def triggers/manage_configuration_trigger.ts
+$ slack trigger create --trigger-def triggers/manage_configuration_shortcut_trigger.ts
 ```
 
 - **Triage by lookback days**: Post a private triage report in the current
