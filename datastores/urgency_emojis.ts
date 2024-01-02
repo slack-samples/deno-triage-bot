@@ -11,7 +11,7 @@ A value of 0 signifies the highest urgency, while a value of 2 indicates the low
 
 example data:
 {
-  "name": "red_circle",
+  "name": ":red_circle:",
   "urgency": "0",
 }
 
