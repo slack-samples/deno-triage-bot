@@ -83,7 +83,13 @@ export default Manifest({
     PublicReportWorkflow,
     TriageByDaysWorkflow,
   ],
-  datastores: [ConfDatastore, WebhookDatastore],
+  datastores: [
+    ConfDatastore,
+    WebhookDatastore,
+    DoneEmojisDatastore,
+    UrgencyEmojisDatastore,
+    inProgressEmojisDatastore,
+  ],
   outgoingDomains: ["hooks.slack.com", "hooks.dev.slack.com"],
   botScopes: [
     "channels:history",

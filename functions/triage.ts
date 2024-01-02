@@ -133,15 +133,20 @@ export default SlackFunction(
       }
       console.log("conf", conf);
 
-      const inProgressEmojis =
-        (await InProgressEmojisDatastore.getAll(client)) ||
-        REACJI_IN_PROGRESS;
+      // Retrieve in-progress emojis from the datastore and add them to the default list
+      let inProgressEmojis = await InProgressEmojisDatastore.getAll(client);
+      inProgressEmojis = [...REACJI_IN_PROGRESS, ...inProgressEmojis];
+      console.log("inProgressEmojis", inProgressEmojis);
 
-      const doneEmojis = (await DoneEmojisDatastore.getAll(client)) ||
-        REACJI_DONE;
+      // Retrieve done emojis from the datastore and add them to the default list
+      let doneEmojis = await DoneEmojisDatastore.getAll(client);
+      doneEmojis = [...REACJI_DONE, ...doneEmojis];
+      console.log("doneEmojis", doneEmojis);
 
-      const urgencyEmojis = (await UrgencyEmojisDatastore.getAll(client)) ||
-        URGENCY_EMOJIS;
+      // Retrieve urgency emojis from the datastore and add them to the default list
+      let urgencyEmojis = await UrgencyEmojisDatastore.getAll(client);
+      urgencyEmojis = { ...URGENCY_EMOJIS, ...urgencyEmojis };
+      console.log("urgencyEmojis", urgencyEmojis);
 
       const responders = await getMentionsFromChannelTopic(client, channel_id);
 
