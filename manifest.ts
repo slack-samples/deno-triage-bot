@@ -35,6 +35,42 @@ export const WebhookDatastore = DefineDatastore({
   },
 });
 
+export const DoneEmojisDatastore = DefineDatastore({
+  name: "done_emojis",
+  primary_key: "name",
+  attributes: {
+    name: {
+      type: Schema.types.string,
+    },
+  },
+});
+
+export const UrgencyEmojisDatastore = DefineDatastore({
+  name: "urgency_emojis",
+  primary_key: "name",
+  attributes: {
+    name: {
+      type: Schema.types.string,
+    },
+    urgency: {
+      type: Schema.types.number,
+    },
+  },
+});
+
+export const inProgressEmojisDatastore = DefineDatastore({
+  name: "in_progress_emojis",
+  primary_key: "name",
+  attributes: {
+    name: {
+      type: Schema.types.string,
+    },
+    url: {
+      type: Schema.types.string,
+    },
+  },
+});
+
 export default Manifest({
   name: "triagebot-on-platform",
   description: "Triagebot on Platform 2.0",
@@ -47,7 +83,13 @@ export default Manifest({
     PublicReportWorkflow,
     TriageByDaysWorkflow,
   ],
-  datastores: [ConfDatastore, WebhookDatastore],
+  datastores: [
+    ConfDatastore,
+    WebhookDatastore,
+    DoneEmojisDatastore,
+    UrgencyEmojisDatastore,
+    inProgressEmojisDatastore,
+  ],
   outgoingDomains: ["hooks.slack.com", "hooks.dev.slack.com"],
   botScopes: [
     "channels:history",
