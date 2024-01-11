@@ -128,7 +128,10 @@ export default SlackFunction(
       }
 
       const conf = await ConfDatastore.get(client, channel_id);
-      if (inputs.lookback_days && Number(inputs.lookback_days)) {
+      if (
+        inputs.lookback_days && Number(inputs.lookback_days) &&
+        !inputs.scheduled
+      ) {
         conf.lookback_days = inputs.lookback_days;
       }
       console.log("conf", conf);
