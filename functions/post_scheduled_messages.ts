@@ -105,7 +105,7 @@ async function tripPublicReportWebhookTrigger(
     body: JSON.stringify({
       "channel_id": channel_id,
       "scheduled": "true",
-      "lookback_days": 0,
+      "lookback_days": "0",
     }),
   });
   if (!resp.ok) throw new Error(resp.statusText);
