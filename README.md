@@ -89,7 +89,7 @@ $ slack trigger create --trigger-def triggers/public_report_shortcut_trigger.ts
 - **Manage Triagebot Configuration**: Manage channel configuration for scheduled
   posts and lookback days for triage requests. To get scheduled posts working,
   you need to first create `private_report_webhook_trigger` and add the webhook
-  url to the `webhook` datastore.
+  url to the `url` datastore.
 
 1. create the `private_report_webhook_trigger` trigger
 
@@ -97,10 +97,10 @@ $ slack trigger create --trigger-def triggers/public_report_shortcut_trigger.ts
 $ slack trigger create --trigger-def triggers/private_report_webhook_trigger.ts
 ```
 
-2. Save the webhook URLs in the `webhook` datastore
+2. Save the webhook URLs in the `url` datastore
 
 ```zsh
-$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "private", "url": "webhook url from step 1"}}'
+$ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "private_webhook", "url": "webhook url from step 1"}}'
 ```
 
 3. Run the following command to create the `manage configuration` workflow
@@ -112,7 +112,7 @@ $ slack trigger create --trigger-def triggers/manage_configuration_shortcut_trig
 - **Triage by lookback days**: Post a private triage report in the current
   channel with the specified lookback days for triage requests. To get this
   workflow to work, you need to create `public_report_webhook_trigger` and add
-  the webhook url to the `webhook` datastore.
+  the webhook url to the `url` datastore.
 
 1. create the `public_report_webhook_trigger` trigger
 
@@ -120,10 +120,10 @@ $ slack trigger create --trigger-def triggers/manage_configuration_shortcut_trig
 $ slack trigger create --trigger-def triggers/public_report_webhook_trigger.ts
 ```
 
-2. Save the webhook URLs in the `webhook` datastore
+2. Save the webhook URLs in the `url` datastore
 
 ```zsh
-$ slack datastore put '{"datastore": "webhook", "app": "app_id", "item": {"name": "public", "url": "webhook url from step 1"}}'
+$ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "public_webhook", "url": "webhook url from step 1"}}'
 ```
 
 3. Run the following command to enable the `triage by days` workflow

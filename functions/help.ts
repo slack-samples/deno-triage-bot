@@ -68,11 +68,15 @@ What do those emoji mean?
 Below are the workflows for Triagebot, you can search them using the \`More > Automations > Workflows\` page
 
 - \`triage\` to get a report of triage requests in <#${channel_id}>
+Workflow Link: 
 
 - \`triage publish\` to publish the triage info in <#${channel_id}>
+Workflow Link:
 
 - \`Triage by lookback days\` to get a report of triage requests in <#${channel_id}> with your specified lookback days
+Workflow Link:
 
 - \`Manage Triagebot Configuration\` to configure settings for sending scheduled posts to a channel
+Workflow Link:
 `;
 }
