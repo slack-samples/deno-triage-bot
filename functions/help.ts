@@ -1,10 +1,6 @@
+import { SlackAPI } from "deno-slack-api/mod.ts";
 import { ensureConversationsJoined } from "../lib/lib_slack.ts";
-import {
-  DefineFunction,
-  Schema,
-  SlackAPI,
-  SlackFunction,
-} from "deno-slack-sdk/mod.ts";
+import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
 import UrlDatastore from "../datastores/url.ts";
 import type { SlackAPIClient } from "deno-slack-api/types.ts";
 
