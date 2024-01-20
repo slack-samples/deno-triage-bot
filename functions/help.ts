@@ -43,7 +43,11 @@ export default SlackFunction(HelpFunction, async (
     const response = await client.apiCall("chat.postEphemeral", {
       channel: channel_id,
       user: user_id,
+<<<<<<< Updated upstream
       text: helpText,
+=======
+      text: helpTextGenerator(channel_id, client),
+>>>>>>> Stashed changes
     });
     if (!response["ok"]) throw new Error(response.error);
     return { outputs: {} };
@@ -58,7 +62,11 @@ export async function helpTextGenerator(
   channel_id: string,
   client: SlackAPIClient,
 ): Promise<string> {
+<<<<<<< Updated upstream
   const privateShortcutUrl = await UrlDatastore.get(
+=======
+  const private_shortcut_url = await UrlDatastore.get(
+>>>>>>> Stashed changes
     client,
     "private_shortcut",
   );

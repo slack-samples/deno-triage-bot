@@ -1,0 +1,12 @@
+{
+  "apps": {
+    "T062UBBR6": {
+      "app_id": "A015NCAQ30A",
+      "enterprise_id": "E0C5Q6P17",
+      "IsDev": false,
+      "team_domain": "bugdev",
+      "team_id": "T062UBBR6"
+    }
+  },
+  "default": "bugdev"
+}

@@ -27,7 +27,6 @@ export default class DoneEmojisDatastore {
 
     const doneEmojis = ret.items as DoneEmojiItem[];
     console.log(`Found ${doneEmojis.length} emojis in the datastore.`);
-
     const emojis = doneEmojis.map(({ name }) => name);
     return emojis;
   };
