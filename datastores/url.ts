@@ -21,6 +21,7 @@ export default class UrlDatastore {
     });
     if (!ret.ok) throw new Error(ret.error);
     const datastoreItem = ret.item as UrlItem;
-    return datastoreItem.url ?? "";
+    return datastoreItem.url ??
+      "It seems like you haven't saved the workflow link in the `url` datastore";
   };
 }

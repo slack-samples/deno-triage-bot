@@ -70,16 +70,8 @@ Here is the list of workflows for Triage Bot and steps to create them:
 
 - **Triagebot Help**: Post a private help message in the current channel.
 
-1. create the `help_shortcut_trigger` trigger
-
 ```zsh
 $ slack trigger create --trigger-def triggers/help_shortcut_trigger.ts
-```
-
-2. Save the shortcut URL with name `help_shortcut` in the `url` datastore
-
-```zsh
-$ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "help_shortcut", "url": "shortcut url from step 1"}}'
 ```
 
 - **Triage**: Post a private triage report for the current channel.
