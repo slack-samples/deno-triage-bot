@@ -76,7 +76,7 @@ Here is the list of workflows for Triage Bot and steps to create them:
 $ slack trigger create --trigger-def triggers/help_shortcut_trigger.ts
 ```
 
-2. Save the URL with name `help_shortcut` in the `url` datastore
+2. Save the shortcut URL with name `help_shortcut` in the `url` datastore
 
 ```zsh
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "help_shortcut", "url": "shortcut url from step 1"}}'
@@ -90,7 +90,7 @@ $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "h
 $ slack trigger create --trigger-def triggers/private_report_shortcut_trigger.ts
 ```
 
-2. Save the URL with name `private_shortcut` in the `url` datastore
+2. Save the shortcut URL with name `private_shortcut` in the `url` datastore
 
 ```zsh
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "private_shortcut", "url": "shortcut url from step 1"}}'
@@ -104,7 +104,7 @@ $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "p
 $ slack trigger create --trigger-def triggers/public_report_shortcut_trigger.ts
 ```
 
-2. Save the URL with name `public_shortcut` in the `url` datastore
+2. Save the shortcut URL with name `public_shortcut` in the `url` datastore
 
 ```zsh
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "public_shortcut", "url": "shortcut url from step 1"}}'
@@ -121,7 +121,7 @@ $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "p
 $ slack trigger create --trigger-def triggers/private_report_webhook_trigger.ts
 ```
 
-2. Save the URL with name `private_webhook` in the `url` datastore
+2. Save the webhook URL with name `private_webhook` in the `url` datastore
 
 ```zsh
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "private_webhook", "url": "webhook url from step 1"}}'
@@ -131,6 +131,12 @@ $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "p
 
 ```zsh
 $ slack trigger create --trigger-def triggers/manage_configuration_shortcut_trigger.ts
+```
+
+4. Save the shortcut URL with name `manage_shortcut` in the `url` datastore
+
+```zsh
+$ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "manage_shortcut", "url": "shortcut url from step 3"}}'
 ```
 
 - **Triage by lookback days**: Post a private triage report in the current
@@ -144,7 +150,7 @@ $ slack trigger create --trigger-def triggers/manage_configuration_shortcut_trig
 $ slack trigger create --trigger-def triggers/public_report_webhook_trigger.ts
 ```
 
-2. Save the URL with name `public_webhook` in the `url` datastore
+2. Save the webhook URL with name `public_webhook` in the `url` datastore
 
 ```zsh
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "public_webhook", "url": "webhook url from step 1"}}'
@@ -154,6 +160,12 @@ $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "p
 
 ```zsh
 $ slack trigger create --trigger-def triggers/triage_by_days_shortcut_trigger.ts
+```
+
+4. Save the shortcut URL with name `triage_shortcut` in the `url` datastore
+
+```zsh
+$ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "triage_shortcut", "url": "shortcut url from step 3"}}'
 ```
 
 ## Creating Triggers

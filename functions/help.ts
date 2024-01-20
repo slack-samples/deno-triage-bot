@@ -1,6 +1,10 @@
-import { SlackAPI } from "deno-slack-api/mod.ts";
 import { ensureConversationsJoined } from "../lib/lib_slack.ts";
-import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import {
+  DefineFunction,
+  Schema,
+  SlackAPI,
+  SlackFunction,
+} from "deno-slack-sdk/mod.ts";
 import UrlDatastore from "../datastores/url.ts";
 import type { SlackAPIClient } from "deno-slack-api/types.ts";
 
@@ -43,11 +47,7 @@ export default SlackFunction(HelpFunction, async (
     const response = await client.apiCall("chat.postEphemeral", {
       channel: channel_id,
       user: user_id,
-<<<<<<< Updated upstream
       text: helpText,
-=======
-      text: helpTextGenerator(channel_id, client),
->>>>>>> Stashed changes
     });
     if (!response["ok"]) throw new Error(response.error);
     return { outputs: {} };
@@ -62,20 +62,16 @@ export async function helpTextGenerator(
   channel_id: string,
   client: SlackAPIClient,
 ): Promise<string> {
-<<<<<<< Updated upstream
   const privateShortcutUrl = await UrlDatastore.get(
-=======
-  const private_shortcut_url = await UrlDatastore.get(
->>>>>>> Stashed changes
     client,
     "private_shortcut",
   );
-  const public_shortcut_url = await UrlDatastore.get(client, "public_shortcut");
-  const triage_by_day_shortcut_url = await UrlDatastore.get(
+  const publicShortcutUrl = await UrlDatastore.get(client, "public_shortcut");
+  const triageShortcutUrl = await UrlDatastore.get(
     client,
-    "triage_by_day_shortcut",
+    "triage_shortcut",
   );
-  const manage_shortcut_url = await UrlDatastore.get(
+  const manageShortcutUrl = await UrlDatastore.get(
     client,
     "manage_shortcut",
   );
@@ -94,15 +90,15 @@ What do those emoji mean?
 Below are the workflows for Triagebot, you can search them using the \`More > Automations > Workflows\` page
 
 - \`triage\` to get a report of triage requests in <#${channel_id}>
-Workflow Link: ${private_shortcut_url}
+Workflow Link: ${privateShortcutUrl}
 
 - \`triage publish\` to publish the triage info in <#${channel_id}>
-Workflow Link: ${public_shortcut_url}
+Workflow Link: ${publicShortcutUrl}
 
 - \`Triage by lookback days\` to get a report of triage requests in <#${channel_id}> with your specified lookback days
-Workflow Link: ${triage_by_day_shortcut_url}
+Workflow Link: ${triageShortcutUrl}
 
 - \`Manage Triagebot Configuration\` to configure settings for sending scheduled posts to a channel
-Workflow Link: ${manage_shortcut_url}
+Workflow Link: ${manageShortcutUrl}
 `;
 }
