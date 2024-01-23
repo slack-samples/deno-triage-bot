@@ -1,26 +1,27 @@
 import { SlackAPIClient } from "deno-slack-api/types.ts";
 
-type WebhookItem = {
+type UrlItem = {
   name: string;
   url: string;
 };
 
-export default class WebhookDatastore {
-  private static readonly DATASTORE_NAME = "webhook";
+export default class UrlDatastore {
+  private static readonly DATASTORE_NAME = "url";
 
   static get = async (
     client: SlackAPIClient,
     name: string,
-  ): Promise<WebhookItem> => {
+  ): Promise<string> => {
     console.log(
-      `Getting webhook ${name} from the datastore...`,
+      `Getting ${name} URL from the datastore...`,
     );
     const ret = await client.apps.datastore.get({
       datastore: this.DATASTORE_NAME,
       id: name,
     });
     if (!ret.ok) throw new Error(ret.error);
-    const webhook = ret.item as WebhookItem;
-    return webhook;
+    const datastoreItem = ret.item as UrlItem;
+    return datastoreItem.url ??
+      "It seems like you haven't saved the workflow link in the `url` datastore";
   };
 }

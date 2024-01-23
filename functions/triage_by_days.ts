@@ -1,7 +1,7 @@
 import { renderCollectLookbackDaysView } from "../views/triage_by_lookback_days/collect_lookback_days.ts";
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
 import { getSlackApiClient } from "../lib/lib_slack.ts";
-import WebhookDatastore from "../datastores/webhook.ts";
+import UrlDatastore from "../datastores/url.ts";
 
 export const TriageByDaysFunction = DefineFunction({
   callback_id: "triage_by_days_function",
@@ -55,15 +55,17 @@ export default SlackFunction(
       const lookbackDays: string =
         view.state.values["lookback_days_block"]["lookback_days"]["value"];
       // get webhook trigger for private report from datastore
-      const webhook = await WebhookDatastore.get(client, "private");
-      const webhookUrl = webhook["url"];
+      const private_webhook_url = await UrlDatastore.get(
+        client,
+        "private_webhook",
+      );
       const privateMetadata = JSON.parse(view.private_metadata ?? "");
       const channelId = privateMetadata["channel_id"];
       const userId = privateMetadata["user_id"];
 
       await tripPrivateReportWebhookTrigger(
         token,
-        webhookUrl,
+        private_webhook_url,
         channelId,
         userId,
         lookbackDays,

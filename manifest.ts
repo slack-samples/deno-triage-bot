@@ -22,8 +22,8 @@ export const ConfDatastore = DefineDatastore({
   },
 });
 
-export const WebhookDatastore = DefineDatastore({
-  name: "webhook",
+export const UrlDatastore = DefineDatastore({
+  name: "url",
   primary_key: "name",
   attributes: {
     name: {
@@ -85,7 +85,7 @@ export default Manifest({
   ],
   datastores: [
     ConfDatastore,
-    WebhookDatastore,
+    UrlDatastore,
     DoneEmojisDatastore,
     UrgencyEmojisDatastore,
     inProgressEmojisDatastore,

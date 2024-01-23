@@ -3,7 +3,7 @@ import ConfDatastore from "../datastores/conf.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
 import type { SlackAPIClient } from "deno-slack-api/types.ts";
 import { DefineFunction, SlackFunction } from "deno-slack-sdk/mod.ts";
-import WebhookDatastore from "../datastores/webhook.ts";
+import UrlDatastore from "../datastores/url.ts";
 
 export const PostScheduledMessagesFunction = DefineFunction({
   callback_id: "post_scheduled_messages",
@@ -35,13 +35,16 @@ export default SlackFunction(
     const client = SlackAPI(token, slackClientOpts);
 
     // get webhook trigger for public report from datastore
-    const webhook = await WebhookDatastore.get(client, "public");
-    const webhookUrl = webhook["url"];
+    const public_webhook_url = await UrlDatastore.get(client, "public_wehook");
     try {
       const channelIds = await getChannelIds(client);
 
       for (const channelId of channelIds) {
-        await tripPublicReportWebhookTrigger(token, webhookUrl, channelId);
+        await tripPublicReportWebhookTrigger(
+          token,
+          public_webhook_url,
+          channelId,
+        );
       }
       return { outputs: {} };
     } catch (error) {
