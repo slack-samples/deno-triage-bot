@@ -6,6 +6,7 @@ import InProgressEmojisDatastore from "../datastores/in_progress_emojis.ts";
 import UrgencyEmojisDatastore from "../datastores/urgency_emojis.ts";
 import DoneEmojisDatastore from "../datastores/done_emojis.ts";
 import { ensureConversationsJoined } from "../lib/lib_slack.ts";
+import UrlDatastore from "../datastores/url.ts";
 
 export const TriageFunction = DefineFunction({
   callback_id: "triage",
@@ -421,7 +422,12 @@ async function buildSummary(
     }
   }
   if (scheduled) {
-    summary += "Trigger the `triage` workflow to see more information.";
+    const privateShortcutUrl = await UrlDatastore.get(
+      client,
+      "private_shortcut",
+    );
+    summary +=
+      `Trigger the triage workflow ${privateShortcutUrl} to see more information.`;
   }
   return summary;
 }
