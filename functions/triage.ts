@@ -183,6 +183,7 @@ export default SlackFunction(
       if (
         scheduled &&
         (summary === NO_PENDING_REQUESTS_MSG ||
+          messages.length === 0 ||
           isFromTriagebot(messages[0]))
       ) {
         console.log(
