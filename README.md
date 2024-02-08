@@ -119,13 +119,19 @@ $ slack trigger create --trigger-def triggers/private_report_webhook_trigger.ts
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "private_webhook", "url": "webhook url from step 1"}}'
 ```
 
-3. Run the following command to create the `manage configuration` workflow
+3. Run the following command to create the `post scheduled messages` workflow
+
+```zsh
+$ slack trigger create --trigger-def triggers/post_messages_scheduled_trigger.ts
+```
+
+4. Run the following command to create the `manage configuration` workflow
 
 ```zsh
 $ slack trigger create --trigger-def triggers/manage_configuration_shortcut_trigger.ts
 ```
 
-4. Save the shortcut URL with name `manage_shortcut` in the `url` datastore
+5. Save the shortcut URL with name `manage_shortcut` in the `url` datastore
 
 ```zsh
 $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "manage_shortcut", "url": "shortcut url from step 3"}}'
