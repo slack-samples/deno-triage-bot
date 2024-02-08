@@ -72,7 +72,7 @@ export const inProgressEmojisDatastore = DefineDatastore({
 });
 
 export default Manifest({
-  name: "triagebot-on-platform",
+  name: "triagebot",
   description: "Triagebot on Platform 2.0",
   icon: "assets/icon.png",
   workflows: [
