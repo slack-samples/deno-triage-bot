@@ -210,7 +210,7 @@ $ slack trigger create --trigger-def triggers/trigger.ts
 
 ## Datastores
 All datastores can be found in the `/datastores` directory
-* `conf` - datastores for channel configurations.
+- `conf` - datastores for channel configurations.
 ```
 {
   "channel_id": "C0A1B2C3D",
@@ -219,7 +219,7 @@ All datastores can be found in the `/datastores` directory
 }
 ```
 
-* `url` - datastores for various workflow and webhook URLs.
+- `url` - datastores for various workflow and webhook URLs.
 ```
 {
   "name": "triage_shortcut",
@@ -227,21 +227,21 @@ All datastores can be found in the `/datastores` directory
 }
 ```
 
-* `done_emojis` - ddatastores for emojis that indicate a request is done, in addition to the default list of emojis.
+- `done_emojis` - ddatastores for emojis that indicate a request is done, in addition to the default list of emojis.
 ```
 {
   "name": "red-x"
 }
 ```
 
-* `in_progress_emojis` - datastores for emojis that indicate a request is currently being looked at in addition to the default list of emojis.
+- `in_progress_emojis` - datastores for emojis that indicate a request is currently being looked at in addition to the default list of emojis.
 ```
 {
   "name": "eyes_right"
 }
 ```
 
-* `urgency_emojis` - datastores for emojis that indicate which messages is a request, with their associated urgency levels. in addition to the default list of emojis. **Note** that emojis are added in the format of :emoji: instead of emoji.
+- `urgency_emojis` - datastores for emojis that indicate which messages is a request, with their associated urgency levels. in addition to the default list of emojis. **Note** that emojis are added in the format of :emoji: instead of emoji.
 ```
 {
   "name": ":white-c:",
@@ -255,8 +255,7 @@ infrastructure. The use of a datastore requires the
 
 You may also intereact with datastores using the
 [Slack command line interface](https://api.slack.com/automation/cli/commands#datastore).
-Interacting datastores using the slack cli is examplified in workflow
-creations in [the Included Workflows section](#included-workflows).
+Interacting datastores using the slack cli is examplified in workflow creations in [the Included Workflows section](#included-workflows).
 
 ## Testing
 
