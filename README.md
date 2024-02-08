@@ -120,6 +120,7 @@ $ slack datastore put '{"datastore": "url", "app": "app_id", "item": {"name": "p
 ```
 
 3. Run the following command to create the `post scheduled messages` workflow
+
 ```zsh
 $ slack trigger create --trigger-def triggers/post_messages_scheduled_trigger.ts
 ```
