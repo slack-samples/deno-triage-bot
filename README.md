@@ -210,15 +210,65 @@ $ slack trigger create --trigger-def triggers/trigger.ts
 
 ## Datastores
 
+All datastores can be found in the `/datastores` directory
+
+- `conf` - datastores for channel configurations.
+
+```
+{
+  "channel_id": "C0A1B2C3D",
+  "lookback_days": "7",
+  "schedule": "0 9-17 * * *"
+}
+```
+
+- `url` - datastores for various workflow and webhook URLs.
+
+```
+{
+  "name": "triage_shortcut",
+  "url": "https://slack.com/shortcuts/unique_identifier"
+}
+```
+
+- `done_emojis` - ddatastores for emojis that indicate a request is done, in
+  addition to the default list of emojis.
+
+```
+{
+  "name": "red-x"
+}
+```
+
+- `in_progress_emojis` - datastores for emojis that indicate a request is
+  currently being looked at in addition to the default list of emojis.
+
+```
+{
+  "name": "eyes_right"
+}
+```
+
+- `urgency_emojis` - datastores for emojis that indicate which messages is a
+  request, with their associated urgency levels. in addition to the default list
+  of emojis. **Note** that emojis are added in the format of :emoji: instead of
+  emoji.
+
+```
+{
+  "name": ":white-c:",
+  "urgency": 2
+}
+```
+
 For storing data related to your app, datastores offer secure storage on Slack
 infrastructure. The use of a datastore requires the
 `datastore:write`/`datastore:read` scopes to be present in your manifest.
 
 You may also intereact with datastores using the
 [Slack command line interface](https://api.slack.com/automation/cli/commands#datastore).
-Interacting datastores using the slack cli is examplified in
-`Triage by lookback days` and `Manage Triagebot Configuration` workflow
-creations in [the Included Workflows section](#included-workflows).
+Interacting datastores using the slack cli is examplified in workflow creations
+in [the Included Workflows section](#included-workflows).
 
 ## Testing
 
