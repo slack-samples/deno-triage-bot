@@ -35,7 +35,7 @@ export default SlackFunction(
     const client = SlackAPI(token, slackClientOpts);
 
     // get webhook trigger for public report from datastore
-    const public_webhook_url = await UrlDatastore.get(client, "public_wehook");
+    const public_webhook_url = await UrlDatastore.get(client, "public_webhook");
     try {
       const channelIds = await getChannelIds(client);
 
