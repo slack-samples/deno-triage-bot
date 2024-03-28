@@ -575,6 +575,7 @@ function request_message_format_for_summary(
   message = message.replaceAll("<", "");
   message = message.replaceAll(">", "");
   message = message.replaceAll("\n", " ");
+  message = message.replaceAll("|", " ");
   //truncate text
   if (message.length >= 80) message = message.slice(0, 80) + "...";
   // remove whitespace, newline, etc
