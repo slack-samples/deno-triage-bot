@@ -69,6 +69,7 @@ type MessageType = {
   type: string;
   ts: string;
   text: string;
+  attachments?: { [key: string]: string };
   team: string;
   user?: string;
   username?: string;
@@ -292,8 +293,13 @@ function isRequest(
     ? message.comment?.comment ?? message.text
     : message.text;
 
+  const msg_attachment_text = message.attachments && message.attachments["text"]
+    ? message.attachments["text"]
+    : "";
+
   for (const emoji in urgencyEmojis) {
     if (msg_text.includes(emoji)) return true;
+    if (msg_attachment_text.includes(emoji)) return true;
   }
 
   return false;
