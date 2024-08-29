@@ -487,6 +487,7 @@ async function buildRequestSummary(
     summary += request_message_format_for_summary(
       request["text"],
       urgencyEmojis,
+      publicMessage,
     );
     summary += "\n";
   }
@@ -566,23 +567,23 @@ function getPriorityEmoji(
 function request_message_format_for_summary(
   message: string,
   urgencyEmojis: { [emoji: string]: number },
+  publicMessage: boolean,
 ): string {
   // strip emojis
   Object.keys(urgencyEmojis).forEach((emoji) => {
     message = message.replace(emoji, "");
   });
   const ZWS = "\u{200B}";
-  // add a space between a @ and a name so you dont at people
-  const name_regex = "/<@.{1,12}\|{1}/ig";
+  if (publicMessage) {
+    // add a space between a @ and a name so you dont at people
+    message = message.replaceAll("<@", "\u200B<@\u200B");
+  }
+
   // delete url garbage so we dont break urls in the summary due to dangling url bits
   const url_regex = "/<.{1,}\|{1}/ig";
 
-  message = message.replaceAll(name_regex, "@${ZWS}");
   message = message.replaceAll(url_regex, ZWS);
-  message = message.replaceAll("<", "");
-  message = message.replaceAll(">", "");
   message = message.replaceAll("\n", " ");
-  message = message.replaceAll("|", " ");
   //truncate text
   if (message.length >= 80) message = message.slice(0, 80) + "...";
   // remove whitespace, newline, etc
