@@ -30,11 +30,15 @@ export const createChannelItem = function (
   lookback_days: string,
   schedule: string,
 ): ChannelItem {
-  const schedules = schedule.split("|");
-  if (!schedules.every((x) => isValidSchedule(x))) {
-    throw new Error(`bad schedule: ${schedule}`);
+  let schedules: string[];
+  if (schedule == "``") {
+    schedules = [];
+  } else {
+    schedules = schedule.split("|");
+    if (!schedules.every((x) => isValidSchedule(x))) {
+      throw new Error(`bad schedule: ${schedule}`);
+    }
   }
-
   if (!Number(lookback_days)) {
     throw new Error(`bad lookback_days: ${lookback_days}`);
   }
