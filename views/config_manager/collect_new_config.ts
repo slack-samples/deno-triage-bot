@@ -52,7 +52,7 @@ export const renderCollectNewConfigView = (
         "text": {
           "type": "mrkdwn",
           "text":
-            ":calendar: What <https://crontab.guru|cron> schedule should messages be posted to the channel? Once the configuration is submitted, Triagebot will start posting messages to the channel based on this schedule",
+            ":calendar: What <https://crontab.guru|cron> schedule should messages be posted to the channel? put `` to delete an existing configuration. Once the configuration is submitted, Triagebot will start posting messages to the channel based on this schedule",
         },
       },
       {
