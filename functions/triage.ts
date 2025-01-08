@@ -474,7 +474,7 @@ async function buildRequestSummary(
           month: "long",
           day: "numeric",
           hour: "numeric",
-          timeZoneName: "shortGeneric",
+          timeZoneName: "short",
           timeZone: "America/Los_Angeles",
         })
       }>`;
