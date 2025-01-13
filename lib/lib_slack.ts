@@ -27,6 +27,10 @@ export async function ensureConversationsJoined(
       console.log(`Removing schedule from archived channel ${channelId}`);
       await ConfDatastore.clearSchedule(client, channelId);
     }
+    if (ret.error === "method_not_supported_for_channel_type") {
+      console.log(`Removing schedule from private channel ${channelId}`);
+      await ConfDatastore.clearSchedule(client, channelId);
+    }
     throw new Error(ret.error);
   }
 }
