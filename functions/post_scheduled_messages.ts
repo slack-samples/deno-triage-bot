@@ -86,10 +86,6 @@ async function tripPublicReportWebhookTrigger(
   url: string,
   channel_id: string,
 ): Promise<void> {
-  console.log(
-    `Tripping trigger to post in channel ${channel_id} with url ${url}}`,
-  );
-
   /**
    * Sleep for six second before making the webhook API call because the Slack API has a 10 per
    * minute rate limit for this request type. In production, we observed "Too Many Requests"
@@ -97,8 +93,11 @@ async function tripPublicReportWebhookTrigger(
    *
    * @see https://api.slack.com/docs/rate-limits
    */
-  await sleep(6000);
-
+  await sleep(1000);
+  const ts = Date.now();
+  console.log(
+    `${ts} - Tripping trigger to post in channel ${channel_id} with url ${url}}`,
+  );
   const resp = await fetch(url, {
     method: "POST",
     headers: {
