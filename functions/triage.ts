@@ -478,6 +478,17 @@ async function buildRequestSummary(
           timeZone: "America/Los_Angeles",
         })
       }>`;
+    } else if (request["username"]) {
+      const date = new Date(parseInt(request["ts"]) * 1000);
+      summary += `${request["username"]} <${message_link}|posted on ${
+        date.toLocaleString("en-US", {
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          timeZoneName: "short",
+          timeZone: "America/Los_Angeles",
+        })
+      }>`;
     } else {
       summary += message_link;
     }
