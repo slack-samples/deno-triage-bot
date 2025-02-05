@@ -564,7 +564,7 @@ function getPriorityEmoji(
   return emoji;
 }
 
-function request_message_format_for_summary(
+export function request_message_format_for_summary(
   message: string,
   urgencyEmojis: { [emoji: string]: number },
   publicMessage: boolean,
@@ -573,19 +573,22 @@ function request_message_format_for_summary(
   Object.keys(urgencyEmojis).forEach((emoji) => {
     message = message.replace(emoji, "");
   });
-  const ZWS = "\u{200B}";
+
   if (publicMessage) {
     // add a space between a @ and a name so you dont at people
     message = message.replaceAll("<@", "\u200B<@\u200B");
   }
 
-  // delete url garbage so we dont break urls in the summary due to dangling url bits
-  const url_regex = "/<.{1,}\|{1}/ig";
-
-  message = message.replaceAll(url_regex, ZWS);
   message = message.replaceAll("\n", " ");
   //truncate text
   if (message.length >= 80) message = message.slice(0, 80) + "...";
+
+  // Because we truncate the message, there is a possibility that we truncate a link, channel, or username which leaves a dangling
+  // "<" charater. Leaving this charater in the message will cause the link to the next message to be broken. To prevent this
+  // after we truncate we replace all danging "<" characters with an empty string. This can cause some channel links or username to not show up
+  // but its better than breaking the link to the next message.
+  message = message.replaceAll(/<(?!.*>)/gi, "");
+
   // remove whitespace, newline, etc
   message = message.trim();
 
