@@ -1,4 +1,4 @@
-import { assertEquals } from "testing/asserts.ts";
+import { assertEquals } from "@std/assert";
 
 import { getMentions, request_message_format_for_summary } from "./triage.ts";
 
