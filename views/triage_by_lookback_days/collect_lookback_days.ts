@@ -1,6 +1,7 @@
 export const renderCollectLookbackDaysView = (
   channel_id: string,
   user_id: string,
+  lookback_days: string,
 ) => {
   return {
     "type": "modal",
@@ -20,7 +21,7 @@ export const renderCollectLookbackDaysView = (
         "element": {
           "type": "plain_text_input",
           "action_id": "lookback_days",
-          "initial_value": "7",
+          "initial_value": lookback_days,
         },
         "label": {
           "type": "plain_text",
