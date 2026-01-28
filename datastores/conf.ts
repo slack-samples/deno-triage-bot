@@ -93,7 +93,8 @@ export default class ConfDatastore {
     let cursor: string | undefined = undefined;
 
     do {
-      const ret = await client.apps.datastore.query({
+      // deno-lint-ignore no-explicit-any
+      const ret: any = await client.apps.datastore.query({
         datastore: this.DATASTORE_NAME,
         cursor,
       });
