@@ -89,14 +89,26 @@ export default class ConfDatastore {
     client: SlackAPIClient,
   ): Promise<Array<ChannelItem>> => {
     console.log("Getting all confs from the datastore...");
-    const ret = await client.apps.datastore.query({
-      datastore: this.DATASTORE_NAME,
-    });
-    if (!ret.ok) throw new Error(ret.error);
-    const confs = ret.items as DSChannelItem[];
-    console.log(`Found ${confs.length} confs in the datastore.`);
+    const allConfs: DSChannelItem[] = [];
+    let cursor: string | undefined = undefined;
+
+    do {
+      // deno-lint-ignore no-explicit-any
+      const ret: any = await client.apps.datastore.query({
+        datastore: this.DATASTORE_NAME,
+        cursor,
+      });
+      if (!ret.ok) throw new Error(ret.error);
+
+      const confs = ret.items as DSChannelItem[];
+      allConfs.push(...confs);
+
+      cursor = ret.response_metadata?.next_cursor;
+    } while (cursor);
+
+    console.log(`Found ${allConfs.length} confs in the datastore.`);
     const transformed_confs = Array<ChannelItem>();
-    for (const conf of confs) {
+    for (const conf of allConfs) {
       let schedule = Array<string>();
       if (!conf.schedule) {
         schedule = [];
