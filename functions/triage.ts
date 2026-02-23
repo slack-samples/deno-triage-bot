@@ -1,6 +1,6 @@
-import { SlackAPI } from "deno-slack-api/mod.ts";
-import type { SlackAPIClient } from "deno-slack-api/types.ts";
-import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { SlackAPI } from "@slack/api";
+import type { SlackAPIClient } from "@slack/api/types";
+import { DefineFunction, Schema, SlackFunction } from "@slack/sdk";
 import ConfDatastore from "../datastores/conf.ts";
 import InProgressEmojisDatastore from "../datastores/in_progress_emojis.ts";
 import UrgencyEmojisDatastore from "../datastores/urgency_emojis.ts";

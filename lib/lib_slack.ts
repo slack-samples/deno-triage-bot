@@ -1,6 +1,6 @@
-import { Env } from "deno-slack-sdk/types.ts";
-import { SlackAPIClient } from "deno-slack-api/types.ts";
-import { SlackAPI } from "deno-slack-api/mod.ts";
+import { Env } from "@slack/sdk/types.ts";
+import { SlackAPIClient } from "@slack/api/types";
+import { SlackAPI } from "@slack/api";
 import ConfDatastore from "../datastores/conf.ts";
 
 export const getSlackApiClient = (token: string, env: Env): SlackAPIClient => {

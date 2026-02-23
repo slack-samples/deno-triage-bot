@@ -1,4 +1,4 @@
-import { SlackAPIClient } from "deno-slack-api/types.ts";
+import { SlackAPIClient } from "@slack/api/types";
 
 type DoneEmojiItem = {
   name: string;

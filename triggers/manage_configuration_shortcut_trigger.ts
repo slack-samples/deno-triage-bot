@@ -1,4 +1,4 @@
-import { Trigger } from "deno-slack-api/types.ts";
+import { Trigger } from "@slack/api/types";
 import ManageConfigurationWorkflow from "../workflows/manage_configuration_workflow.ts";
 
 const trigger: Trigger<typeof ManageConfigurationWorkflow.definition> = {

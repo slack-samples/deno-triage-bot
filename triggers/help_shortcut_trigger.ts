@@ -1,4 +1,4 @@
-import { Trigger } from "deno-slack-api/types.ts";
+import { Trigger } from "@slack/api/types";
 import HelpWorkflow from "../workflows/help_workflow.ts";
 
 const trigger: Trigger<typeof HelpWorkflow.definition> = {

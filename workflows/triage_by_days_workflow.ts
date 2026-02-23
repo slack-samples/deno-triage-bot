@@ -1,4 +1,4 @@
-import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
+import { DefineWorkflow, Schema } from "@slack/sdk";
 import { TriageByDaysFunction } from "../functions/triage_by_days.ts";
 
 const TriageByDaysWorkflow = DefineWorkflow({

@@ -1,8 +1,8 @@
 import { parseExpression } from "cron-parser/parse.ts";
 import ConfDatastore from "../datastores/conf.ts";
-import { SlackAPI } from "deno-slack-api/mod.ts";
-import type { SlackAPIClient } from "deno-slack-api/types.ts";
-import { DefineFunction, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { SlackAPI } from "@slack/api";
+import type { SlackAPIClient } from "@slack/api/types";
+import { DefineFunction, SlackFunction } from "@slack/sdk";
 import UrlDatastore from "../datastores/url.ts";
 
 export const PostScheduledMessagesFunction = DefineFunction({
