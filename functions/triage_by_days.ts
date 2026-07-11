@@ -1,5 +1,5 @@
 import { renderCollectLookbackDaysView } from "../views/triage_by_lookback_days/collect_lookback_days.ts";
-import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { DefineFunction, Schema, SlackFunction } from "@slack/sdk";
 import { getSlackApiClient } from "../lib/lib_slack.ts";
 import UrlDatastore from "../datastores/url.ts";
 import ConfDatastore from "../datastores/conf.ts";

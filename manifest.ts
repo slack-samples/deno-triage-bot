@@ -1,4 +1,4 @@
-import { DefineDatastore, Manifest, Schema } from "deno-slack-sdk/mod.ts";
+import { DefineDatastore, Manifest, Schema } from "@slack/sdk";
 import HelpWorkflow from "./workflows/help_workflow.ts";
 import ManageConfigurationWorkflow from "./workflows/manage_configuration_workflow.ts";
 import PostScheduledMessagesWorkflow from "./workflows/post_scheduled_messages_workflow.ts";

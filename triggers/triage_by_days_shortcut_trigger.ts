@@ -1,4 +1,4 @@
-import { Trigger } from "deno-slack-api/types.ts";
+import { Trigger } from "@slack/api/types";
 import TriageByDaysWorkflow from "../workflows/triage_by_days_workflow.ts";
 
 const trigger: Trigger<typeof TriageByDaysWorkflow.definition> = {

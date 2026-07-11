@@ -1,4 +1,4 @@
-import { DefineWorkflow } from "deno-slack-sdk/mod.ts";
+import { DefineWorkflow } from "@slack/sdk";
 import { PostScheduledMessagesFunction } from "../functions/post_scheduled_messages.ts";
 
 const PostScheduledMessagesWorkflow = DefineWorkflow({

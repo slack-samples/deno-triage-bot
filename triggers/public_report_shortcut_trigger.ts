@@ -1,4 +1,4 @@
-import { Trigger } from "deno-slack-api/types.ts";
+import { Trigger } from "@slack/api/types";
 import PublicReportWorkflow from "../workflows/public_report_workflow.ts";
 
 const trigger: Trigger<typeof PublicReportWorkflow.definition> = {

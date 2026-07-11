@@ -1,4 +1,4 @@
-import { Trigger } from "deno-slack-api/types.ts";
+import { Trigger } from "@slack/api/types";
 import PostScheduledMessagesWorkflow from "../workflows/post_scheduled_messages_workflow.ts";
 
 const futureTime = new Date();

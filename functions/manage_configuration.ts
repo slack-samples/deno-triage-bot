@@ -1,6 +1,6 @@
 import { renderSelectChannelView } from "../views/config_manager/select_channel.ts";
 import { renderCollectNewConfigView } from "../views/config_manager/collect_new_config.ts";
-import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { DefineFunction, Schema, SlackFunction } from "@slack/sdk";
 import ConfDatastore, {
   ChannelItem,
   channelItemToDsChannelItem,

@@ -1,8 +1,8 @@
-import { SlackAPI } from "deno-slack-api/mod.ts";
+import { SlackAPI } from "@slack/api";
 import { ensureConversationsJoined } from "../lib/lib_slack.ts";
-import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { DefineFunction, Schema, SlackFunction } from "@slack/sdk";
 import UrlDatastore from "../datastores/url.ts";
-import type { SlackAPIClient } from "deno-slack-api/types.ts";
+import type { SlackAPIClient } from "@slack/api/types";
 
 export const HelpFunction = DefineFunction({
   callback_id: "help",
