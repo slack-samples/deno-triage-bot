@@ -575,6 +575,27 @@ function getPriorityEmoji(
   return emoji;
 }
 
+const SUMMARY_TOKEN = /<([^>|]*)(?:\|([^>]*))?>|[^<]+/g;
+
+function truncateSummary(message: string): string {
+  let summary = "";
+  let remaining = 80;
+  for (const [token, target, label] of message.matchAll(SUMMARY_TOKEN)) {
+    const text = target === undefined ? token : label ?? target;
+    if (text.length <= remaining) {
+      summary += token;
+      remaining -= text.length;
+    } else if (target === undefined) {
+      return `${summary}${token.slice(0, remaining).trimEnd()}...`;
+    } else if (/^[@#!]/.test(target)) {
+      return `${summary.trimEnd()}...`;
+    } else {
+      return `${summary}<${target}|${text.slice(0, remaining).trimEnd()}...>`;
+    }
+  }
+  return summary;
+}
+
 export function request_message_format_for_summary(
   message: string,
   urgencyEmojis: { [emoji: string]: number },
@@ -585,20 +606,12 @@ export function request_message_format_for_summary(
     message = message.replace(emoji, "");
   });
 
+  message = truncateSummary(message.replaceAll("\n", " ").trim());
+
   if (publicMessage) {
     // add a space between a @ and a name so you dont at people
     message = message.replaceAll("<@", "\u200B<@\u200B");
   }
-
-  message = message.replaceAll("\n", " ");
-  //truncate text
-  if (message.length >= 80) message = message.slice(0, 80) + "...";
-
-  // Because we truncate the message, there is a possibility that we truncate a link, channel, or username which leaves a dangling
-  // "<" charater. Leaving this charater in the message will cause the link to the next message to be broken. To prevent this
-  // after we truncate we replace all danging "<" characters with an empty string. This can cause some channel links or username to not show up
-  // but its better than breaking the link to the next message.
-  message = message.replaceAll(/<(?!.*>)/gi, "");
 
   // remove whitespace, newline, etc
   message = message.trim();
