@@ -575,67 +575,22 @@ function getPriorityEmoji(
   return emoji;
 }
 
-const SUMMARY_MAX_LENGTH = 80;
+const SUMMARY_TOKEN = /<([^>|]*)(?:\|([^>]*))?>|[^<]+/g;
 
-const MRKDWN_ENTITY = /<([^<>|]*)(?:\|([^<>]*))?>/g;
-
-type SummaryPart =
-  | { kind: "text"; text: string }
-  | { kind: "link"; raw: string; url: string; label: string }
-  | { kind: "entity"; raw: string; visibleLength: number };
-
-function splitMrkdwn(message: string): SummaryPart[] {
-  const parts: SummaryPart[] = [];
-  let end = 0;
-  for (const match of message.matchAll(MRKDWN_ENTITY)) {
-    const [raw, target, label] = match;
-    const index = match.index ?? 0;
-    if (index > end) {
-      parts.push({ kind: "text", text: message.slice(end, index) });
-    }
-    if (/^[@#!]/.test(target)) {
-      parts.push({
-        kind: "entity",
-        raw,
-        visibleLength: (label || target).length,
-      });
-    } else {
-      parts.push({ kind: "link", raw, url: target, label: label || target });
-    }
-    end = index + raw.length;
-  }
-  if (end < message.length) {
-    parts.push({ kind: "text", text: message.slice(end) });
-  }
-  return parts;
-}
-
-function truncateMrkdwn(message: string, maxLength: number): string {
+function truncateSummary(message: string): string {
   let summary = "";
-  let remaining = maxLength;
-  for (const part of splitMrkdwn(message)) {
-    if (part.kind === "text") {
-      const text = part.text.replaceAll("<", "");
-      if (text.length > remaining) {
-        return `${summary}${text.slice(0, remaining).trimEnd()}...`;
-      }
-      summary += text;
+  let remaining = 80;
+  for (const [token, target, label] of message.matchAll(SUMMARY_TOKEN)) {
+    const text = target === undefined ? token : label ?? target;
+    if (text.length <= remaining) {
+      summary += token;
       remaining -= text.length;
-    } else if (part.kind === "link") {
-      if (part.label.length > remaining) {
-        const label = part.label.slice(0, remaining).trimEnd();
-        return label
-          ? `${summary}<${part.url}|${label}...>`
-          : `${summary.trimEnd()}...`;
-      }
-      summary += part.raw;
-      remaining -= part.label.length;
+    } else if (target === undefined) {
+      return `${summary}${token.slice(0, remaining).trimEnd()}...`;
+    } else if (/^[@#!]/.test(target)) {
+      return `${summary.trimEnd()}...`;
     } else {
-      if (part.visibleLength > remaining) {
-        return `${summary.trimEnd()}...`;
-      }
-      summary += part.raw;
-      remaining -= part.visibleLength;
+      return `${summary}<${target}|${text.slice(0, remaining).trimEnd()}...>`;
     }
   }
   return summary;
@@ -646,16 +601,20 @@ export function request_message_format_for_summary(
   urgencyEmojis: { [emoji: string]: number },
   publicMessage: boolean,
 ): string {
+  // strip emojis
   Object.keys(urgencyEmojis).forEach((emoji) => {
     message = message.replace(emoji, "");
   });
 
-  message = message.replaceAll("\n", " ").trim();
-  message = truncateMrkdwn(message, SUMMARY_MAX_LENGTH).trim();
+  message = truncateSummary(message.replaceAll("\n", " ").trim());
 
   if (publicMessage) {
+    // add a space between a @ and a name so you dont at people
     message = message.replaceAll("<@", "\u200B<@\u200B");
   }
+
+  // remove whitespace, newline, etc
+  message = message.trim();
 
   return message;
 }
